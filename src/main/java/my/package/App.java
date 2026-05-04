@@ -17,6 +17,9 @@ public class App extends Application{
         Controller controller = new Controller(model, InteractionModel);    // decisions of what to do with model and iModel
         View view = new View(model, iModel, canvas);    // show what the model and iModel represent
 
+        model.addSubscriber(view);
+        iModel.addSubscriber(view);
+
         // view delegates event handling to controller
         view.setupEvents(controller);
 
