@@ -14,9 +14,10 @@ public class App extends Application{
         // set up MVC connections
         Model model = new Model();  // holds business logic
         InteractionModel iModel = new InteractionModel(model);  // interactions with the business logic
-        Controller controller = new Controller(model, InteractionModel);    // decisions of what to do with model and iModel
         View view = new View(model, iModel, canvas);    // show what the model and iModel represent
+        Controller controller = new Controller(model, InteractionModel, view);    // decisions of what to do with model and iModel
 
+        // observer pattern
         model.addSubscriber(view);
         iModel.addSubscriber(view);
 
