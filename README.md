@@ -1,5 +1,8 @@
 # This project aims to utilize the JavaFX library to demonstrate an understanding of the Model-View-Controller architecture.
 
+### Attributions : 
+- Goose image generated using OpenAI image generation tools (2026).
+
 ## Requirements:
 - Java 17 + (tested with Java 21
 - Maven 3.8 +
