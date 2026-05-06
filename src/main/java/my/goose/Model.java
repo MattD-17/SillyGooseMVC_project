@@ -1,3 +1,5 @@
+package my.goose;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +10,7 @@ public class Model implements Publisher {
 
     private final List<Subscriber> subscribers = new ArrayList<>();
 
-    private void setMousePosition( double x, double y) {
+    public void setMousePosition( double x, double y) {
         this.mouseX = x;
         this.mouseY = y;
         notifySubscribers();
@@ -37,8 +39,8 @@ public class Model implements Publisher {
 
     @Override
     public void notifySubscribers() {
-        for (Subscriber s : subscribers) {
-            s.update();
+        for (Subscriber sub : subscribers) {
+            sub.update();
         }
     }
 

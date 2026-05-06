@@ -1,3 +1,5 @@
+package my.goose;
+
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
@@ -46,13 +48,13 @@ public class Controller {
     public void handleDragged(MouseEvent mouseEvent) {currentState.handleDragged(mouseEvent);}
     public void handleReleased(MouseEvent mouseEvent) { currentState.handleReleased(mouseEvent); }
     public void tick() { currentState.update(); }
-    private void setState(ControllerState newState) { this.currentState = newState; }
+    private void setState(State newState) { this.currentState = newState; }
 
 
 
     public static class IdleState extends State{
 
-        private final long startTime = System.currentTimeMillis();
+        private long startTime = System.currentTimeMillis();
         private final long delay = 2000;
 
         IdleState(Controller controller){
@@ -62,7 +64,7 @@ public class Controller {
 
         @Override
         void handleMoved(MouseEvent e){
-            controller.setMousePosition(e.getX(), e.getY());
+            controller.model.setMousePosition(e.getX(), e.getY());
             controller.iModel.updateInteractionState();
         }
 
@@ -88,13 +90,13 @@ public class Controller {
         }
 
         @Override
-        void handleClicked(MouseEvent e){
+        void handlePressed(MouseEvent e){
             if (controller.iModel.isMouseOverGoose()){
                 controller.setState(new IdleState(controller));
             }
         }
         @Override
-        public void update(Model model){
+        public void update(){
             Model m = controller.model;
 
             double dx = m.getMouseX() - m.getGooseX();

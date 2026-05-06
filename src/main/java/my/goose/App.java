@@ -1,3 +1,5 @@
+package my.goose;
+
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -15,7 +17,7 @@ public class App extends Application{
         Model model = new Model();  // holds business logic
         InteractionModel iModel = new InteractionModel(model);  // interactions with the business logic
         View view = new View(model, iModel, canvas);    // show what the model and iModel represent
-        Controller controller = new Controller(model, InteractionModel, view);    // decisions of what to do with model and iModel
+        Controller controller = new Controller(model, iModel, view);    // decisions of what to do with model and iModel
 
         // observer pattern
         model.addSubscriber(view);
@@ -27,7 +29,7 @@ public class App extends Application{
         new AnimationTimer(){
             @Override
             public void handle(long now){
-                controller.update();
+                controller.tick();
             }
         }.start();
 

@@ -1,3 +1,5 @@
+package my.goose;
+
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -23,7 +25,6 @@ public class View implements Subscriber {
         canvas.setOnMousePressed(controller::handlePressed);
         canvas.setOnMouseMoved(controller::handleMoved);
         canvas.setOnMouseReleased(controller::handleReleased);
-        canvas.setOnMouseClicked(controller::handleClicked);
     }
 
     public void update(){
