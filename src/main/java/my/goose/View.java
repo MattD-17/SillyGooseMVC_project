@@ -24,6 +24,7 @@ public class View implements Subscriber {
     public void setupEvents(Controller controller){
         canvas.setOnMousePressed(controller::handlePressed);
         canvas.setOnMouseMoved(controller::handleMoved);
+        canvas.setOnMouseDragged(controller::handleDragged);
         canvas.setOnMouseReleased(controller::handleReleased);
     }
 
@@ -45,6 +46,12 @@ public class View implements Subscriber {
         }
 
         gc.drawImage(gooseImage, x - 25, y - 25, 50, 50);
+
+
+        for (Box box : model.getBoxes()){
+            gc.strokeRect(box.getX(), box.getY(), box.getWidth(), box.getHeight());
+        }
+
 
     }
 

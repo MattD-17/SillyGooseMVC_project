@@ -6,12 +6,41 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.control.Label;
+import javafx.scene.text.Text;
+import javafx.scene.control.Button;
+
+
 
 public class App extends Application{
 
 
     public void start(Stage stage){
-        Canvas canvas = new Canvas(800, 600); // create canvas
+
+
+        int sceneX = 1000;
+        int sceneY = 1000;
+
+
+        VBox root = new VBox();
+        HBox layerOne = new HBox();
+
+        double canvasX = sceneX * 0.8;
+        double canvasY = sceneY * 0.8;
+
+        double infoX = sceneX * 0.2;
+        double controlY = sceneY * 0.2; 
+
+        Canvas canvas = new Canvas((int)canvasX, (int)canvasY); // create canvas
+        VBox infoGrid = new VBox();
+        infoGrid.setPrefSize((int) infoX, sceneY);
+        HBox controlPanel = new HBox();
+        controlPanel.setPrefSize(sceneX, (int) controlY);
+
+        infoGrid.setStyle("-fx-background-color: red;");
+        controlPanel.setStyle("-fx-background-color: blue;");
 
         // set up MVC connections
         Model model = new Model();  // holds business logic
@@ -33,7 +62,9 @@ public class App extends Application{
             }
         }.start();
 
-        stage.setScene(new Scene(new StackPane(canvas)));
+        layerOne.getChildren().addAll(canvas, infoGrid);
+        root.getChildren().addAll(controlPanel, layerOne);
+        stage.setScene(new Scene(root, sceneX, sceneY));
         stage.show();
     }
 

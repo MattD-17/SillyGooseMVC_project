@@ -91,9 +91,14 @@ public class Controller {
 
         @Override
         void handlePressed(MouseEvent e){
+            controller.model.setMousePosition(e.getX(), e.getY());
             if (controller.iModel.isMouseOverGoose()){
                 controller.setState(new IdleState(controller));
             }
+            else {
+                controller.setState( new CreateState(controller));
+            }
+
         }
         @Override
         public void update(){
@@ -115,7 +120,44 @@ public class Controller {
 
     }
 
+    public static class CreateState extends State{
 
+        // save mouse position
+        private double mouseX;
+        private double mouseY; 
+
+        private double currentMouseX;
+        private double currentMouseY;
+
+        CreateState(Controller controller){
+            super(controller);
+            this.mouseX = controller.model.getMouseX();
+            this.mouseY = controller.model.getMouseY();
+        }
+
+        @Override
+        void handleDragged(MouseEvent e){
+            this.currentMouseX = e.getX();
+            this.currentMouseY = e.getY();
+        }
+
+        @Override
+        void handleReleased(MouseEvent e){
+
+            double x = Math.min(mouseX, currentMouseX);
+            double y = Math.min(mouseY, currentMouseY);
+
+            double width = Math.abs(currentMouseX - mouseX);
+            double height = Math.abs(currentMouseY - mouseY);
+
+            Box newBox = new Box(x, y, width, height);
+
+            controller.model.addBox(newBox);
+            controller.setState(new MovingState(controller));
+        }
+
+
+    }
 
 
 

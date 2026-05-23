@@ -10,6 +10,17 @@ public class Model implements Publisher {
 
     private final List<Subscriber> subscribers = new ArrayList<>();
 
+    private List<Box> boxes = new ArrayList<Box>();
+
+
+    public void addBox(Box box){
+        boxes.add(box);
+    }
+
+    public List<Box> getBoxes(){
+        return this.boxes;
+    }
+
     public void setMousePosition( double x, double y) {
         this.mouseX = x;
         this.mouseY = y;
