@@ -8,10 +8,23 @@ public class Model implements Publisher {
     private double mouseX, mouseY;
     private double gooseX, gooseY;
 
-    private final List<Subscriber> subscribers = new ArrayList<>();
+    private double canvasSizeX;
+    private double canvasSizeY;
 
+    private final List<Subscriber> subscribers = new ArrayList<>();
     private List<Box> boxes = new ArrayList<Box>();
 
+    public void setSize(double x, double y){
+        this.canvasSizeX = x;
+        this.canvasSizeY = y;
+    }
+
+    public List<Double> getSize(){
+        List<Double> coords = new ArrayList<>();
+        coords.add(canvasSizeX);
+        coords.add(canvasSizeY);
+        return coords;
+    }
 
     public void addBox(Box box){
         boxes.add(box);
@@ -31,6 +44,17 @@ public class Model implements Publisher {
         this.gooseX = x;
         this.gooseY = y;
         notifySubscribers();
+    }
+
+    public Boolean checkGooseInBox(){
+
+        if (this.gooseX < 0 || this.gooseX > 800){
+            return true;
+        }
+        else if (this.gooseY < 200 || this.gooseY > 1000){
+            return true;
+        }
+        return false;
     }
 
     public double getMouseX() { return mouseX; }

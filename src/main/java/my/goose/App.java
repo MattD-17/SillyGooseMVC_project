@@ -34,13 +34,6 @@ public class App extends Application{
         double controlY = sceneY * 0.2; 
 
         Canvas canvas = new Canvas((int)canvasX, (int)canvasY); // create canvas
-        VBox infoGrid = new VBox();
-        infoGrid.setPrefSize((int) infoX, sceneY);
-        HBox controlPanel = new HBox();
-        controlPanel.setPrefSize(sceneX, (int) controlY);
-
-        infoGrid.setStyle("-fx-background-color: red;");
-        controlPanel.setStyle("-fx-background-color: blue;");
 
         // set up MVC connections
         Model model = new Model();  // holds business logic
@@ -52,6 +45,17 @@ public class App extends Application{
         model.addSubscriber(view);
         iModel.addSubscriber(view);
 
+        model.setSize(canvasX, canvasY);
+
+        // information for the program
+        InfoView infoView = new InfoView((int)infoX, sceneY, model, iModel);
+
+        // Controls for user
+        ControlView controlView = new ControlView(sceneX, (int) controlY, model, iModel);
+        
+        model.addSubscriber(infoView);
+        iModel.addSubscriber(infoView);
+
         // view delegates event handling to controller
         view.setupEvents(controller);
 
@@ -62,8 +66,8 @@ public class App extends Application{
             }
         }.start();
 
-        layerOne.getChildren().addAll(canvas, infoGrid);
-        root.getChildren().addAll(controlPanel, layerOne);
+        layerOne.getChildren().addAll(canvas, infoView.getInfo());
+        root.getChildren().addAll(controlView.getView(), layerOne);
         stage.setScene(new Scene(root, sceneX, sceneY));
         stage.show();
     }
